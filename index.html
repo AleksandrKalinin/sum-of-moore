@@ -26,15 +26,17 @@
     }
 
     const sumOfMoore = memoizationSum((min, max) => {
-      console.log(`Invoked original function with parameters ${min} and ${max}`);
+      console.log(`Invoked original function with argument ${min} and ${max}`);
       if (min >= max) {
-        throw new Error('Incorrect range! First parameter should be less than second one');
+        throw new Error('Incorrect range! First argument should be less than second one');
       } else if(min < 0 || max < 0) {
         throw new Error('Numbers should be positive');
       } else if(typeof min !== 'number' || typeof max !== 'number') {
-        throw new Error('You should pass only numbers as parameters');
+        throw new Error('You should pass only numbers as arguments');
       } else if(!Number.isSafeInteger(min) || !Number.isSafeInteger(max)) {
         throw new Error('Incorrect value! Provided number is too big');
+      } else if(typeof min !== 'number' || typeof max !== 'number') {
+        throw new Error('Arguments should be numbers!');
       } else {
         let n = max - min + 1;
         let sum = n * (max + min) / 2;
@@ -44,6 +46,7 @@
     //console.log("First parameter is bigger than second", sumOfMoore(3, 2));
     //console.log("Negative value", sumOfMoore(-1, 4));
     //console.log("Exceeding range", sumOfMoore(3, 9007199254740992));
+    //console.log("Incorrect arguments type", sumOfMoore('1', 6));
     console.log("Sum equals", sumOfMoore(1, 5));
     console.log("Sum equals", sumOfMoore(1, 5));
   </script>
