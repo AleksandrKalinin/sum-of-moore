@@ -12,7 +12,7 @@
       let prevValues = [];
       return (...params) => {
         let result = prevValues.find( item => item.params === JSON.stringify(params));
-        if(result) {
+        if (result) {
           console.log(`Found values ${params[0]} and ${params[1]} in cache`);
           return result.sum;
         }
@@ -29,13 +29,13 @@
       console.log(`Invoked original function with argument ${min} and ${max}`);
       if (min >= max) {
         throw new Error('Incorrect range! First argument should be less than second one');
-      } else if(min < 0 || max < 0) {
+      } else if (min < 0 || max < 0) {
         throw new Error('Numbers should be positive');
-      } else if(typeof min !== 'number' || typeof max !== 'number') {
+      } else if (typeof min !== 'number' || typeof max !== 'number') {
         throw new Error('You should pass only numbers as arguments');
-      } else if(!Number.isSafeInteger(min) || !Number.isSafeInteger(max)) {
+      } else if (!Number.isSafeInteger(min) || !Number.isSafeInteger(max)) {
         throw new Error('Incorrect value! Provided number is too big');
-      } else if(typeof min !== 'number' || typeof max !== 'number') {
+      } else if (typeof min !== 'number' || typeof max !== 'number') {
         throw new Error('Arguments should be numbers!');
       } else {
         let n = max - min + 1;
