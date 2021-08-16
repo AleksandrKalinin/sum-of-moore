@@ -40,7 +40,11 @@
       } else {
         let n = max - min + 1;
         let sum = n * (max + min) / 2;
-        return sum;
+        if (!Number.isSafeInteger(sum)) {
+          throw new Error('Incorrect value! Sum is too big');
+        } else {
+          return sum;
+        }
       }
     })        
     //console.log("First parameter is bigger than second", sumOfMoore(3, 2));
