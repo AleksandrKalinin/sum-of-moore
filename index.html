@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const memoizationSum = (funcParam) => {
+      let prevValues = [];
+      return (...params) => {
+        let result = prevValues.find( item => item.params === JSON.stringify(params));
+        if(result) {
+          console.log(`Found values ${params[0]} and ${params[1]} in cache`);
+          return result.sum;
+        }
+        sum = funcParam.apply(this, params);
+        prevValues.push({
+          params: JSON.stringify(params),
+          sum: sum
+        })
+        return sum;          
+      }
+    }
+
+    const sumOfMoore = memoizationSum((min, max) => {
+      console.log(`Invoked original function with parameters ${min} and ${max}`);
+      if (min >= max) {
+        throw new Error('Incorrect range! First parameter should be less than second one');
+      } else if(min < 0 || max < 0) {
+        throw new Error('Numbers should be positive');
+      } else if(typeof min !== 'number' || typeof max !== 'number') {
+        throw new Error('You should pass only numbers as parameters');
+      } else if(!Number.isSafeInteger(min) || !Number.isSafeInteger(max)) {
+        throw new Error('Incorrect value! Provided number is too big');
+      } else {
+        let n = max - min + 1;
+        let sum = n * (max + min) / 2;
+        return sum;
+      }
+    })        
+    //console.log("First parameter is bigger than second", sumOfMoore(3, 2));
+    //console.log("Negative value", sumOfMoore(-1, 4));
+    //console.log("Exceeding range", sumOfMoore(3, 9007199254740992));
+    console.log("Sum equals", sumOfMoore(1, 5));
+    console.log("Sum equals", sumOfMoore(1, 5));
+  </script>
+</body>
+</html>
